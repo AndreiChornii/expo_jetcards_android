@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
     // elevation: 8,
     backgroundColor: "#ffffff",
     borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+    // paddingVertical: 10,
+    // paddingHorizontal: 12
   },
   appButtonText: {
     fontSize: 12,
