@@ -37,10 +37,24 @@ export default () => {
     console.log('login & password');
   } else if(typeof errors.login !== 'undefined') {
     console.log('login');
+    Alert.alert(
+      "Error",
+      "Please, enter login",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
   } else if(typeof errors.password !== 'undefined') {
     console.log('password');
+    Alert.alert(
+      "Error",
+      "Please, enter password",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
   }
-  console.log('errors', errors);
+  // console.log('errors', errors);
 
 
   return (
