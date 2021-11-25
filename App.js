@@ -3,13 +3,13 @@
 
 
 import React from "react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import { Linking, Alert, Button, Image, View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import {useForm, Controller} from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+// import Auth from '../JetCards/src/components/Auth';
 
 // const TextInANest = () => {
 const titleText = "JET CARDS Service - Sign in";
-// };
 
 export default () => {
   const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
@@ -21,10 +21,44 @@ export default () => {
 
   const onPress = data => {
     console.log(data);
-};
+  };
 
   const onSubmit = data => {
-      console.log(data);
+    console.log('SIGN IN');
+    console.log(data);
+    const { login, password } = data;
+
+    const getMoviesFromApi = () => {
+      return fetch(`https://www.jetcs.co/api/GetAPIKey/${login}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: password
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json.APIKey)
+          alert('Logged in successfull');
+          return json.APIKey;
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Wrong login/password');
+        });
+    };
+
+    getMoviesFromApi();
+
+    // <View>
+    //   <Auth
+    //     login="LLLL"
+    //     password="PPP"
+    //   />
+    // </View>
+
   };
 
   const onChange = arg => {
@@ -33,9 +67,9 @@ export default () => {
     };
   };
 
-  if ( (typeof errors.login !== 'undefined') && (typeof errors.password !== 'undefined') ) {
+  if ((typeof errors.login !== 'undefined') && (typeof errors.password !== 'undefined')) {
     console.log('login & password');
-  } else if(typeof errors.login !== 'undefined') {
+  } else if (typeof errors.login !== 'undefined') {
     console.log('login');
     Alert.alert(
       "Error",
@@ -44,7 +78,7 @@ export default () => {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]
     );
-  } else if(typeof errors.password !== 'undefined') {
+  } else if (typeof errors.password !== 'undefined') {
     console.log('password');
     Alert.alert(
       "Error",
@@ -120,7 +154,11 @@ export default () => {
           </TouchableOpacity>
         </View>
       </View>
+      <View>
+
+      </View>
     </View>
+
   );
 };
 
